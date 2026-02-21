@@ -3,6 +3,7 @@ import * as vscode from "vscode"
 import type { ToolUse, ToolResponse } from "../shared/tools"
 import { classifyTool } from "./commandClassifier"
 import { runPreToolHook, getActiveIntent, guardMutatingTool } from "./preHook"
+import { runPostToolHook } from "./postHook"
 import type { Task } from "../core/task/Task"
 
 export type ToolExecutor = (toolUse: ToolUse, pushResult: (content: ToolResponse) => void) => Promise<void>
@@ -21,7 +22,11 @@ export class HookEngine {
 
 	private constructor(private readonly task: Task) {}
 
-	async runTool(toolUse: ToolUse, executor: ToolExecutor, pushToolResult: (content: ToolResponse) => void): Promise<boolean> {
+	async runTool(
+		toolUse: ToolUse,
+		executor: ToolExecutor,
+		pushToolResult: (content: ToolResponse) => void,
+	): Promise<boolean> {
 		const preHookResult = await runPreToolHook({ task: this.task, toolUse, pushToolResult })
 		if (preHookResult.handled) {
 			return false
@@ -40,7 +45,8 @@ export class HookEngine {
 					JSON.stringify({
 						type: "tool_error",
 						tool: toolUse.name,
-						message: "Destructive operation rejected by human reviewer. Please propose a safer alternative.",
+						message:
+							"Destructive operation rejected by human reviewer. Please propose a safer alternative.",
 					}),
 				)
 				return false
@@ -48,6 +54,7 @@ export class HookEngine {
 		}
 
 		await executor(toolUse, pushToolResult)
+		await runPostToolHook(toolUse)
 		return true
 	}
 

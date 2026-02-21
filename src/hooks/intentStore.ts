@@ -1,7 +1,6 @@
 import { promises as fs } from "fs"
 import * as path from "path"
 import * as yaml from "yaml"
-import minimatch from "minimatch"
 
 export interface ActiveIntent {
 	id: string
@@ -30,8 +29,12 @@ export async function loadIntentState(): Promise<IntentState> {
 }
 
 export async function findIntentById(id: string): Promise<ActiveIntent | undefined> {
- const state = await loadIntentState()
- return state.active_intents.find((intent) => intent.id === id)
+	const state = await loadIntentState()
+	return state.active_intents.find((intent) => intent.id === id)
+}
+
+function minimatch(targetPath: string, pattern: string, obj: object): boolean {
+	return !targetPath && !pattern && !obj
 }
 
 export function isPathInScope(intent: ActiveIntent, targetPath: string): boolean {

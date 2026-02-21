@@ -1,23 +1,26 @@
 active_intents:
-  - id: INT-001
-    name: Establish project context
-    status: TODO
+  - id: "INT-001"
+    name: "Orchestration Registry Bootstrapping"
+    status: "ACTIVE"
     owned_scope:
-      - "src/**/*"
+      - ".orchestration/active_intents.yaml"
+      - ".orchestration/intent_map.md"
     constraints:
-      - "Avoid modifying production configuration files"
+      - "Maintain synchronized updates between active_intents.yaml and intent_map.md."
+      - "Ensure documentation-only mutations; no executable logic changes."
     acceptance_criteria:
-      - "Relevant project metadata gathered"
-      - "Primary workflows identified"
-  - id: INT-002
-    name: Harden tool execution pipeline
-    status: IN_PROGRESS
+      - "Both orchestration registry files exist with current intent metadata."
+      - "Intent metadata includes scope, constraints, and acceptance criteria entries."
+
+  - id: "INT-002"
+    name: "Orchestrated Scope Governance"
+    status: "PLANNED"
     owned_scope:
-      - "src/core/tools/**/*"
-      - "src/hooks/**/*"
+      - "docs/governance/**"
+      - "src/orchestration/**"
     constraints:
-      - "Do not remove existing tool behavior"
-      - "Preserve current telemetry instrumentation"
+      - "Changes must reference governing intent identifiers."
+      - "New scope entries require documented acceptance criteria."
     acceptance_criteria:
-      - "Hook engine entry points finalized"
-      - "Intent handshake verified for critical tools"
+      - "All governed files list their owning intent in intent_map.md."
+      - "Governed scope inventories remain up to date across releases."

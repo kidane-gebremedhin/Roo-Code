@@ -296,6 +296,8 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	skill: "load skill",
 	generate_image: "generate images",
 	custom_tool: "use custom tools",
+	select_active_intent: "select active intent",
+	missing_intent_id: "missing intent id",
 } as const
 
 // Define available tool groups.

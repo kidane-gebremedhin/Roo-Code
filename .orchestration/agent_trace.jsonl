@@ -1,0 +1,35 @@
+{
+  "id": "c4d0f3e7-1234-4567-89ab-987654321000",
+  "timestamp": "2026-02-21T12:45:10.000Z",
+  "version": "1.0.0",
+  "vcs": {
+    "type": "git",
+    "revision": "abc123def456"
+  },
+  "files": [
+    {
+      "relative_path": "src/hooks/hookEngine.ts",
+      "conversations": [
+        {
+          "contributor": {
+            "entity_type": "AI",
+            "model_identifier": "openai-api"
+          },
+          "intent_id": "INT-001",
+          "mutation_class": "AST_REFACTOR",
+          "ranges": [
+            {
+              "start_line": 1,
+              "end_line": 180,
+              "content_hash": "sha256:4a7d1ed414474e4033ac29ccb8653d9b..."
+            }
+          ],
+          "related": [
+            { "type": "intent", "value": "INT-001" },
+            { "type": "specification", "value": "TRP1-Week1-AI-Native-IDE" }
+          ]
+        }
+      ]
+    }
+  ]
+}
