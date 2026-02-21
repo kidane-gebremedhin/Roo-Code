@@ -107,6 +107,7 @@ export type NativeToolArgs = {
 		question: string
 		follow_up: Array<{ text: string; mode?: string }>
 	}
+	select_active_intent: { intent_id: string }
 	codebase_search: { query: string; path?: string }
 	generate_image: GenerateImageParams
 	run_slash_command: { command: string; args?: string }
@@ -115,7 +116,12 @@ export type NativeToolArgs = {
 	switch_mode: { mode_slug: string; reason: string }
 	update_todo_list: { todos: string }
 	use_mcp_tool: { server_name: string; tool_name: string; arguments?: Record<string, unknown> }
-	write_to_file: { path: string; content: string }
+	write_to_file: {
+		path: string
+		content: string
+		intent_id: string
+		mutation_class: "AST_REFACTOR" | "INTENT_EVOLUTION" | "DOC_UPDATE"
+	}
 	// Add more tools as they are migrated to native protocol
 }
 

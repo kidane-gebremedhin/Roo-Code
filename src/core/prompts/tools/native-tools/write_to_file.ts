@@ -14,6 +14,8 @@ Example: Writing a configuration file
 const PATH_PARAMETER_DESCRIPTION = `The path of the file to write to (relative to the current workspace directory)`
 
 const CONTENT_PARAMETER_DESCRIPTION = `The content to write to the file. ALWAYS provide the COMPLETE intended content of the file, without any truncation or omissions. You MUST include ALL parts of the file, even if they haven't been modified. Do NOT include line numbers in the content.`
+const INTENT_ID_DESCRIPTION = `The active intent identifier that authorizes this mutation. Must match the currently selected intent via select_active_intent.`
+const MUTATION_CLASS_DESCRIPTION = `Classify the nature of this change. Use AST_REFACTOR for refactors or syntax-only adjustments within the intent scope, INTENT_EVOLUTION for behavior or feature additions, and DOC_UPDATE for documentation or comment-only modifications.`
 
 export default {
 	type: "function",
@@ -32,8 +34,17 @@ export default {
 					type: "string",
 					description: CONTENT_PARAMETER_DESCRIPTION,
 				},
+				intent_id: {
+					type: "string",
+					description: INTENT_ID_DESCRIPTION,
+				},
+				mutation_class: {
+					type: "string",
+					enum: ["AST_REFACTOR", "INTENT_EVOLUTION", "DOC_UPDATE"],
+					description: MUTATION_CLASS_DESCRIPTION,
+				},
 			},
-			required: ["path", "content"],
+			required: ["path", "content", "intent_id", "mutation_class"],
 			additionalProperties: false,
 		},
 	},

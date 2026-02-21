@@ -1,0 +1,23 @@
+active_intents:
+  - id: INT-001
+    name: Establish project context
+    status: TODO
+    owned_scope:
+      - "src/**/*"
+    constraints:
+      - "Avoid modifying production configuration files"
+    acceptance_criteria:
+      - "Relevant project metadata gathered"
+      - "Primary workflows identified"
+  - id: INT-002
+    name: Harden tool execution pipeline
+    status: IN_PROGRESS
+    owned_scope:
+      - "src/core/tools/**/*"
+      - "src/hooks/**/*"
+    constraints:
+      - "Do not remove existing tool behavior"
+      - "Preserve current telemetry instrumentation"
+    acceptance_criteria:
+      - "Hook engine entry points finalized"
+      - "Intent handshake verified for critical tools"

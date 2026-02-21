@@ -29,6 +29,7 @@ import { accessMcpResourceTool } from "../tools/accessMcpResourceTool"
 import { askFollowupQuestionTool } from "../tools/AskFollowupQuestionTool"
 import { switchModeTool } from "../tools/SwitchModeTool"
 import { attemptCompletionTool, AttemptCompletionCallbacks } from "../tools/AttemptCompletionTool"
+import { HookEngine } from "../../hooks/hookEngine"
 import { newTaskTool } from "../tools/NewTaskTool"
 import { updateTodoListTool } from "../tools/UpdateTodoListTool"
 import { runSlashCommandTool } from "../tools/RunSlashCommandTool"
@@ -320,8 +321,14 @@ export async function presentAssistantMessage(cline: Task) {
 				break
 			}
 
-			// Fetch state early so it's available for toolDescription and validation
-			const state = await cline.providerRef.deref()?.getState()
+		const hookEngine = HookEngine.forTask(cline)
+		let capturedResult: ToolResponse | undefined
+		const runResult = await hookEngine.runTool(
+			block,
+			async (toolUse, innerPush) => {
+				// We reuse existing logic by delegating to the native execution path below.
+		// Fetch state early so it's available for toolDescription and validation
+		const state = await cline.providerRef.deref()?.getState()
 			const { mode, customModes, experiments: stateExperiments, disabledTools } = state ?? {}
 
 			const toolDescription = (): string => {
