@@ -5,6 +5,7 @@ import applyPatch from "./apply_patch"
 import askFollowupQuestion from "./ask_followup_question"
 import attemptCompletion from "./attempt_completion"
 import codebaseSearch from "./codebase_search"
+import selectActiveIntent from "./select_active_intent"
 import editTool from "./edit"
 import executeCommand from "./execute_command"
 import generateImage from "./generate_image"
@@ -65,6 +66,7 @@ export function getNativeTools(options: NativeToolsOptions = {}): OpenAI.Chat.Ch
 		edit_file,
 		editTool,
 		searchFiles,
+		selectActiveIntent,
 		switchMode,
 		updateTodoList,
 		writeToFile,

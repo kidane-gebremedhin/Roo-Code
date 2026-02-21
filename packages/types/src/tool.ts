@@ -46,6 +46,8 @@ export const toolNames = [
 	"skill",
 	"generate_image",
 	"custom_tool",
+	"select_active_intent",
+	"missing_intent_id",
 ] as const
 
 export const toolNamesSchema = z.enum(toolNames)

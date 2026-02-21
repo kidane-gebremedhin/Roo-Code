@@ -1,0 +1,26 @@
+active_intents:
+  - id: "INT-001"
+    name: "Orchestration Registry Bootstrapping"
+    status: "ACTIVE"
+    owned_scope:
+      - ".orchestration/active_intents.yaml"
+      - ".orchestration/intent_map.md"
+    constraints:
+      - "Maintain synchronized updates between active_intents.yaml and intent_map.md."
+      - "Ensure documentation-only mutations; no executable logic changes."
+    acceptance_criteria:
+      - "Both orchestration registry files exist with current intent metadata."
+      - "Intent metadata includes scope, constraints, and acceptance criteria entries."
+
+  - id: "INT-002"
+    name: "Orchestrated Scope Governance"
+    status: "PLANNED"
+    owned_scope:
+      - "docs/governance/**"
+      - "src/orchestration/**"
+    constraints:
+      - "Changes must reference governing intent identifiers."
+      - "New scope entries require documented acceptance criteria."
+    acceptance_criteria:
+      - "All governed files list their owning intent in intent_map.md."
+      - "Governed scope inventories remain up to date across releases."
